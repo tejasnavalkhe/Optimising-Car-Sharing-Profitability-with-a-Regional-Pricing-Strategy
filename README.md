@@ -1,7 +1,7 @@
 # Optimising Car Sharing Profitability with a Regional Pricing Strategy
 
 ## Description:
-The dissertation project is a component of my master's degree in MSc Data Science (Specialising in Artificial Intelligence). I served as a Data Scientist Intern at CO-WHEELS UK LIMITED from April 23, 2024, to August 15, 2024.
+The dissertation project is a component of my master's degree in MSc Data Science (Specialising in Artificial Intelligence). I served as a Data Scientist Intern at Co Wheels Car Club from April 23, 2024, to August 15, 2024.
 
 ## Project Objectives:
 1. **Analyse Usage and Demand Patterns:** Examine the extensive trip data available in Co-Wheels’ booking system (TripIQ) to identify patterns in vehicle usage and demand across different locations and times.
