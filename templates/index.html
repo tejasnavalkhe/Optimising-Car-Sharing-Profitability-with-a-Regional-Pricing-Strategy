@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimising Car Sharing Profitability with a Regional Pricing Strategy - Pricing Simulation Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div class="header">
+        <img src="{{ url_for('static', filename='logo/Newcastle University Logo.png') }}" alt="Company Logo"
+            class="logo">
+        <img src="{{ url_for('static', filename='logo/company_logo.png') }}" alt="Company Logo" class="logo">
+    </div>
+    <div class="container">
+        <h1>Optimising Car Sharing Profitability with a Regional Pricing Strategy</h1>
+        <h2>Pricing Simulation Tool</h2>
+        <form id="pricingForm" method="post">
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <select id="location" name="location" required>
+                    {% for location in locations %}
+                    <option value="{{ location }}">{{ location }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="hour_of_the_day">Hour of the Day:</label>
+                <input type="number" id="hour_of_the_day" name="hour_of_the_day" min="0" , max="23" required>
+            </div>
+            <button type="submit" class="submit-button">Get Rates and Revenue Comparison</button>
+        </form>
+        <div>
+            <h2 id="peakHours"></h2>
+        </div>
+        <div id="results_rates">
+            Click on <strong> 'Get Rates and Revenue Comparison' </strong> button and wait for sometime for processing.
+        </div>
+
+        <div id="results_comparison">
+        </div>
+    </div>
+    <div class="footer">
+        <p><strong>Developed by: </strong> Mr. Tejas Satish Navalkhe, Student MSc Data Science (With Specialisation in
+            Artificial Intelligence)
+        </p>
+        <p><strong>Acknowledgements:</strong></p>
+        <p>Dr. Alma Cantu, Supervisor & Program Director (MSc Data Science with AI) at Newcastle University</p>
+        <p>Mr. Robert Schopen, Partnership Manager at Co Wheels</p>
+    </div>
+    <script>
+        document.getElementById('pricingForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            fetch('/', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    var peakHours = document.getElementById('peakHours');
+                    peakHours.textContent = 'Peak Hours: ' + data.peakHours;
+
+                    document.getElementById('results_rates').innerHTML = `
+                        <h2>Predicted Rates</h2>
+                        <p style="text-align: center;">The rates are determined by the specific hour of the day and the demand at various locations.</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Vehicle</th>
+                                    <th>Current Per Hour</th>
+                                    <th>Current Per Day</th>
+                                    <th>Adjusted Per Hour</th>
+                                    <th>Adjusted Per Day</th>
+                                </tr>
+                            </thead>
+                            <tbody id="resultsBody"></tbody>
+                        </table>
+                    `;
+
+                    var resultsBody = document.getElementById('resultsBody');
+                    console.log(data);
+                    for (var vehicle in data.predictions) {
+                        var row = document.createElement('tr');
+
+                        var vehicleCell = document.createElement('td');
+                        vehicleCell.textContent = vehicle;
+
+                        var currentPerHourCell = document.createElement('td');
+                        currentPerHourCell.textContent = '£' + data.predictions[vehicle].current_hourly_rate.toFixed(2);
+
+                        var currentPerDayCell = document.createElement('td');
+                        currentPerDayCell.textContent = '£' + data.predictions[vehicle].current_daily_rate.toFixed(2);
+
+                        var adjustedPerHourCell = document.createElement('td');
+                        adjustedPerHourCell.textContent = '£' + data.predictions[vehicle].adjusted_hourly_rate.toFixed(2);
+
+                        var adjustedPerDayCell = document.createElement('td');
+                        adjustedPerDayCell.textContent = '£' + data.predictions[vehicle].adjusted_daily_rate.toFixed(2);
+
+                        row.appendChild(vehicleCell);
+                        row.appendChild(currentPerHourCell);
+                        row.appendChild(currentPerDayCell);
+                        row.appendChild(adjustedPerHourCell);
+                        row.appendChild(adjustedPerDayCell);
+
+                        resultsBody.appendChild(row);
+                    }
+
+                    document.getElementById('results_comparison').innerHTML = `
+                        <h2>Revenue Comparison</h2>
+                        <p style="text-align: center;">The revenue generated over the last one month is used for calculation and
+                            comparison purposes. The hourly and daily rates in this comparison have varied over the past one
+                            month.</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Vehicle</th>
+                                    <th>Current Revenues</th>
+                                    <th>Adjusted Revenues</th>
+                                    <th>Extra Revenue</th>
+                                </tr>
+                            </thead>
+                            <tbody id="resultsBodyComparison"></tbody>
+                        </table>
+                        `;
+
+                    var resultsBodyComparison = document.getElementById('resultsBodyComparison');
+                    resultsBodyComparison.innerHTML = '';
+
+                    for (var vehicle in data.profitability) {
+                        var row = document.createElement('tr');
+
+                        var vehicleCell = document.createElement('td');
+                        vehicleCell.textContent = vehicle;
+
+                        var currentRevenuesCell = document.createElement('td');
+                        currentRevenuesCell.textContent = '£' + data.profitability[vehicle].actual_revenue.toFixed(2);
+
+                        var adjustedRevenuesCell = document.createElement('td');
+                        adjustedRevenuesCell.textContent = '£' + data.profitability[vehicle].adjusted_revenue.toFixed(2);
+
+                        var ProfitabilityCell = document.createElement('td');
+                        ProfitabilityCell.textContent = '£' + data.profitability[vehicle].profitability.toFixed(2);
+
+                        row.appendChild(vehicleCell);
+                        row.appendChild(currentRevenuesCell);
+                        row.appendChild(adjustedRevenuesCell);
+                        row.appendChild(ProfitabilityCell);
+
+                        resultsBodyComparison.appendChild(row);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    height: 50px;
+    margin-right: 24%;
+    margin-left: 19%;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.container {
+    max-width: 900px; /* 75% */
+    margin: 20px auto;
+    padding: 20px;
+    flex: 1;
+}
+
+h1 {
+    color: #3D0079;
+}
+
+h2 {
+    text-align: center;
+    color: #3D0079;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+form .form-group {
+    flex: 1 1 45%;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input, select {
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+}
+
+.submit-button {
+    margin-top: 2px;
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    background-color: #ffcd3c; /* Yellow background color */
+    color: #3D0079; /* Dark purple text color */
+    border: none;
+    cursor: pointer;
+    border-radius: 12px; /* Rounded border */
+    transition: background-color 0.3s, color 0.3s, border 0.3s; /* Smooth transition for background, text color, and border */
+}
+
+.submit-button:hover {
+    background-color: #ffffff; /* Dark purple background color on hover */
+    color: #3D0079; /* Dark purple text color on hover */
+    border: 2px solid #3D0079;
+}
+
+#results {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #f2f2f2;
+    border-top: 1px solid #ddd;
+}
