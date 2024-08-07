@@ -32,22 +32,18 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    # Get locations from the csv file
     df = pd.read_csv(DATA_PATH + 'transformed_dataset.csv')
-    locations = np.sort(df['location'].unique())
-
-    # locations_list = []
-    # locations = []
-    # with open("locations.txt", "r") as f:
-    #     for location in f.readlines():
-    #         locations_list.append(location)
-    # locations_list.remove('\n')
-    # for location in locations_list:
-    #     locations.append(location.strip())
-    # print(locations, len(locations))
+    locations = np.sort(df['location'].unique()).tolist()
+    remove_locations = ['Banbury', 'Billingshurst', 'Coatbridge', 'Dalkeith', 'Dunbar', 'Exeter', \
+                        'Haddington', 'Huntly', 'Leamington-Spa', 'Nantwich', 'Newbury', 'North Berwick', 'North Shields',\
+                            'On-fleet Bay', 'Poole', 'Putney', 'South Shields', 'Sunderland', 'Upper Tooting', 'Wandsworth', \
+                                'Warwick', 'Wokingham', 'Worthing']
+    for location in remove_locations:
+        locations.remove(location)
 
     if request.method == 'POST':
         location = request.form['location']
-        print(location, '\n\n')
         hour_of_the_day = float(request.form['hour_of_the_day'])
 
         # Load historical data
