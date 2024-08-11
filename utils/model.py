@@ -1,21 +1,7 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-import plotly.express as px
 import warnings
-from scipy import stats
-from matplotlib.ticker import FuncFormatter
-from category_encoders import BinaryEncoder, OneHotEncoder
-from sklearn.tree import DecisionTreeRegressor
-from xgboost import XGBRegressor
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_absolute_error, mean_squared_error
-from sklearn.preprocessing import MinMaxScaler
-import tensorflow as tf
 import keras
-from keras.models import Sequential
-from keras.layers import Dense, Dropout
 import joblib
 
 # Ignore all warnings
@@ -27,6 +13,7 @@ DATA_PATH = "../data/"
 ENCODERS_PATH = "encoders/"
 # Model location
 MODEL_PATH = "models/"
+
 
 def load_encoders():
     '''load the encoders'''
@@ -581,15 +568,35 @@ def demand_factor(historical_data, location, hour):
     final_demand_factor = np.round(np.mean([hour_demand_factor, location_demand_factor]), 5)
     return final_demand_factor, peak_hours
 
+def get_average_rates(df, location):
+    '''A function to get average rates for location and vehicle type'''
+    grouped_averages = df.groupby(['location', 'Vehicle Type']).agg({'hourly_rate': 'mean', 'daily_rate': 'mean'})
+    grouped_averages.reset_index(inplace=True)
+    grouped_averages = grouped_averages[grouped_averages['location'] == location]
+    return grouped_averages
 
-def adjust_prices(row):
-    '''function to adjust prices'''
+def adjust_prices(row, grouped_averages):
+    '''A function to adjust prices'''
     if row['adjusted_revenue'] < row['actual_revenue']:
         row['final_hourly_rate'] = row['hourly_rate']
         row['final_daily_rate'] = row['daily_rate']
-    else:
-        row['final_hourly_rate'] = row['adjusted_hourly']
-        row['final_daily_rate'] = row['adjusted_daily']
+    elif row['adjusted_revenue'] >= row['actual_revenue']:
+        grouped_vehicle = grouped_averages[grouped_averages['Vehicle Type'] == row['vehicle_type']]
+        hourly_rate = grouped_vehicle['hourly_rate'].values[0]
+        daily_rate = grouped_vehicle['daily_rate'].values[0]
+        hourly_rate_50 = hourly_rate + (hourly_rate * 50 / 100)
+        daily_rate_50 = daily_rate + (daily_rate * 50 / 100)
+        hourly_rate_10 = hourly_rate + (hourly_rate * 10 / 100)
+        daily_rate_10 = daily_rate + (daily_rate * 10 / 100)
+        if row['adjusted_hourly'] > hourly_rate_50:
+            row['final_hourly_rate'] = hourly_rate_10
+        else:
+            row['final_hourly_rate'] = row['adjusted_hourly']
+
+        if row['adjusted_daily'] > daily_rate_50:
+            row['final_daily_rate'] = daily_rate_10
+        else:
+            row['final_daily_rate'] = row['adjusted_daily']
     return row
 
 def apply_dynamic_pricing_strategy(predictions_df, demand_factor_value=None):
@@ -648,7 +655,7 @@ def calculate_profitability(df, location, predictions_df):
     # Extracting the demand_factor_value
     filtered_df['demand_factor_value'] = filtered_df.apply(lambda row: row['demand_factor_value'][0] if isinstance(row['demand_factor_value'], tuple) else row['demand_factor_value'], axis=1)
 
-    # add columns like predicted_hourly, predicted_daily, adjusted_hourly, adjusted_daily to filtered_df from predictions_df based on vehicle type
+    # aggregate vital columns
     predictions_df_group = predictions_df.groupby('vehicle_type').agg({
         'current_hourly_rate': 'first',
         'current_daily_rate': 'first',
