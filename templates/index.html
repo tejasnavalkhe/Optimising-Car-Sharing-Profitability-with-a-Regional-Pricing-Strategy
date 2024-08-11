@@ -145,6 +145,15 @@
                         var ProfitabilityCell = document.createElement('td');
                         ProfitabilityCell.textContent = '£' + data.profitability[vehicle].profitability.toFixed(2);
 
+                        // Check if the vehicle name contains 'Z' and make the cells bold if true and change text to 'Total'
+                        if (vehicle.includes('Z')) {
+                            vehicleCell.textContent = 'Total';
+                            vehicleCell.style.fontWeight = 'bold';
+                            currentRevenuesCell.style.fontWeight = 'bold';
+                            adjustedRevenuesCell.style.fontWeight = 'bold';
+                            ProfitabilityCell.style.fontWeight = 'bold';
+                        }
+
                         row.appendChild(vehicleCell);
                         row.appendChild(currentRevenuesCell);
                         row.appendChild(adjustedRevenuesCell);
