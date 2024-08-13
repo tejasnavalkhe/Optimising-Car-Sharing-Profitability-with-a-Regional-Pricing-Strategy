@@ -10,8 +10,7 @@ This research aims to optimise the profitability of Co Wheels, a UK-based car-sh
 The installation begin by cloning this repository. All dependencies are stored in the [requirements.txt file](requirements.txt).
 
 
-```terminal
-
+```
 git clone https://github.com/tejasnavalkhe/Optimising-Car-Sharing-Profitability-with-a-Regional-Pricing-Strategy.git "Optimising Car Sharing Profitability with a Regional Pricing Strategy"
 cd Optimising Car Sharing Profitability with a Regional Pricing Strategy
 pip install -r requirements.txt
@@ -20,8 +19,7 @@ pip install -r requirements.txt
 
 ## Usage
 
-```terminal
-
+```
 python app.py
 ```
 
@@ -29,15 +27,19 @@ python app.py
 ## Screenshots
 
 1. Project Flow Diagram:
+   
 ![Project Flow Diagram](images/Project Flow Diagram.png "Project Flow Diagram")
 
 2. Models Errors:
+   
 ![Models Errors](images/Models Errors.png "Models Errors")
 
 3. Pricing Simulation Tool Results
+   
 ![Pricing Simulation Tool Results](images/Pricing Simulation Tool Results.png "Pricing Simulation Tool Results")
 
 4. Comparison of Last One Month Actual and Adjusted Revenues - Newcastle:
+   
 ![Comparison of Last One Month Actual and Adjusted Revenues - Newcastle](images/Comparison of Last One Month Actual and Adjusted Revenues - Newcastle.png "Comparison of Last One Month Actual and Adjusted Revenues - Newcastle")
 
 
