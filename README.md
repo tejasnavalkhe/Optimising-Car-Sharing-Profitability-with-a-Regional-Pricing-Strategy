@@ -7,19 +7,33 @@ This research aims to optimise the profitability of Co Wheels, a UK-based car-sh
 
 ## Installation
 
-The installation begin by cloning this repository. All dependencies are stored in the [requirements.txt file](requirements.txt).
+Begin by cloning this repository:
 
 
-```
+```bash
 git clone https://github.com/tejasnavalkhe/Optimising-Car-Sharing-Profitability-with-a-Regional-Pricing-Strategy.git "Optimising Car Sharing Profitability with a Regional Pricing Strategy"
 cd Optimising Car Sharing Profitability with a Regional Pricing Strategy
+```
+
+Before installing dependencies, create a virtual environment using the following terminal commands:
+
+```bash
+virtualenv env
+source env/bin/activate
+```
+
+All dependencies are stored in the [requirements.txt file](requirements.txt). Use the following command to install all dependencies:
+
+```bash
 pip install -r requirements.txt
 ```
 
 
 ## Usage
 
-```
+To start the Flask-based web application for the simulation tool, use the following terminal command. (Note: You may encounter an "Internal Server Error" due to the absence of data files which are not publicly available for privacy reasons. To resolve this, you can generate your own dummy dataset.)
+
+```bash
 python app.py
 ```
 
