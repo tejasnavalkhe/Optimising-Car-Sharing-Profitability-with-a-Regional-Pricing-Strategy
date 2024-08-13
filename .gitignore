@@ -9,6 +9,9 @@ __pycache__/
 # Mac store file
 .DS_Store
 
+# ignore not imp files
+docs/ignore_files
+
 # Distribution / packaging
 .Python
 build/
