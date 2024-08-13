@@ -28,19 +28,19 @@ python app.py
 
 1. Project Flow Diagram:
    
-![Project Flow Diagram](images/Project Flow Diagram.png "Project Flow Diagram")
+![Project Flow Diagram](https://github.com/tejasnavalkhe/Optimising-Car-Sharing-Profitability-with-a-Regional-Pricing-Strategy/blob/master/images/Project%20Flow%20Diagram.png)
 
 2. Models Errors:
    
-![Models Errors](images/Models Errors.png "Models Errors")
+![Models Errors](https://github.com/tejasnavalkhe/Optimising-Car-Sharing-Profitability-with-a-Regional-Pricing-Strategy/blob/master/images/Models%20Errors.png)
 
 3. Pricing Simulation Tool Results
    
-![Pricing Simulation Tool Results](images/Pricing Simulation Tool Results.png "Pricing Simulation Tool Results")
+![Pricing Simulation Tool Results](https://github.com/tejasnavalkhe/Optimising-Car-Sharing-Profitability-with-a-Regional-Pricing-Strategy/blob/master/images/Pricing%20Simulation%20Tool%20Results.png)
 
 4. Comparison of Last One Month Actual and Adjusted Revenues - Newcastle:
    
-![Comparison of Last One Month Actual and Adjusted Revenues - Newcastle](images/Comparison of Last One Month Actual and Adjusted Revenues - Newcastle.png "Comparison of Last One Month Actual and Adjusted Revenues - Newcastle")
+![Comparison of Last One Month Actual and Adjusted Revenues - Newcastle](https://github.com/tejasnavalkhe/Optimising-Car-Sharing-Profitability-with-a-Regional-Pricing-Strategy/blob/master/images/Comparison%20of%20Last%20One%20Month%20Actual%20and%20Adjusted%20Revenues%20-%20Newcastle.png)
 
 
 ## Contact Information
