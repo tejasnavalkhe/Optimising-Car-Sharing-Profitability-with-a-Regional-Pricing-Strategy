@@ -10,7 +10,8 @@ __pycache__/
 .DS_Store
 
 # ignore not imp files
-docs/ignore_files
+docs/Optimising Car Sharing Profitability with a Regional Pricing Strategy.pdf
+papers/*
 
 # Distribution / packaging
 .Python
