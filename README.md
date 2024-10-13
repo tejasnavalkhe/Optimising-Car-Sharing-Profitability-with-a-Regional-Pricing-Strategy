@@ -78,4 +78,4 @@ python app.py
 
 ### Note:
 
-The dissertation project is a component of my master's degree in MSc Data Science (Specialisation in Artificial Intelligence). I served as a Data Scientist Intern at Co Wheels Car Club from April 23, 2024, to August 15, 2024.
+The dissertation project is a component of my master's degree in MSc Data Science (Specialisation in Artificial Intelligence). I served as a Data Science Intern at Co Wheels Car Club from May 2024 to September 2024.
